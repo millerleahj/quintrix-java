@@ -12,18 +12,8 @@ public class SelectDataDemo {
     Statement selectStmt = null;
     try {
       // Class.forName("com.mysql.jdbc.Driver"); //is giving error when run
-      connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql", "root", ""); // had
-                                                                                                 // to
-                                                                                                 // change
-                                                                                                 // name
-                                                                                                 // to
-                                                                                                 // match
-                                                                                                 // the
-                                                                                                 // database
-                                                                                                 // name
-                                                                                                 // used
-                                                                                                 // on
-                                                                                                 // DbVisualizer
+      connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/JDBCDemo", "root", "");
+      // created database JDBCDemo
 
       /*
        * insertStmt = connection.createStatement(); insertStmt.
@@ -34,14 +24,22 @@ public class SelectDataDemo {
        */
 
       selectStmt = connection.createStatement();
+
+      String createTable = "CREATE TABLE EMPLOYEE " + "(ID INTEGER not NULL, "
+          + " FIRST VARCHAR(100), " + " LAST VARCHAR (100))";
+      insertStmt.executeUpdate(createTable); // null pointer exception error
+
+
+      String insertData = "INSERT INTO EMPLOYYEE VALUES (1, LEAH, MILLER)";
+      insertStmt.executeUpdate(insertData);
+
       ResultSet rs =
-          selectStmt.executeQuery("SELECT ID,FIRST_NAME,LAST_NAME FROM EMPLOYEE WHERE ID <= 10"); // needed
-                                                                                                  // the
-                                                                                                  // FROM
-                                                                                                  // keyword
+          selectStmt.executeQuery("SELECT ID,FIRST_NAME,LAST_NAME FROM EMPLOYEE WHERE ID <= 10");
+      // needed FROM keyword
       while (rs.next()) {
         System.out.println(rs.getInt(1) + "|" + rs.getString(2) + " " + rs.getString(3)); // All
-                                                                                          // together
+        // together
+
         // System.out.println(rs.getString(2)); // Second Column
         // System.out.println(rs.getString(3)); // Third Column
         // System.out.println(rs.getString(4)); // Fourth Column

@@ -14,15 +14,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
- * All Class Notes
- *
+ * All Class Notes and assignments can be copied from the void class below and input into main to
+ * test
+ * 
  */
 public class App {
   public static void main(String[] args) {
 
+
+
   }
+
+
 
   public void Notes() {
     /*
@@ -74,6 +81,14 @@ public class App {
      * 
      * Map/Hashmap; variable is defined by interface Map; HashMap is implementation
      * 
+     */
+
+    /*
+     * only one abstract function becomes functional interface any code written can only be used for
+     * that single method know the arguments/return types The old way required the TestFPImpl class
+     * and to call it with args and return new way allows it to all be done in a single line of code
+     * 
+     * DO NOT NEED TO DEFINE DATATYPE for first time in Java
      */
   }
 
@@ -244,5 +259,109 @@ public class App {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  private void session8() {
+
+    /*
+     * Need Java8 more compact way of coding
+     */
+
+    // TestFP testFP = new TestFPImpl();
+    // testFP.findCount();
+
+    TestFP testFP = (a, b) -> a + b;// -> == return
+    // cannot have -> 1 (wrong type (int vs String)
+
+    // Predicate<Dog> p = (d) -> d.getAge() > 2;
+    // predicate is a boolean functional interface (returns true/false)
+
+    /*
+     * Predicate the long way: Create Predicate Class
+     * 
+     * public class PredImpl implements Predicate<Integer> { public boolean test(Integer d) { return
+     * d > 10; } }
+     * 
+     * Create Object- Predicate<Integer> p = new PredImpl(); p.test(8); = false
+     */
+
+    List<Integer> intSet = new ArrayList<>();
+    intSet.add(10);
+    intSet.add(12);
+    intSet.add(15);
+    intSet.add(8);
+    intSet.add(10);
+
+    Predicate<Integer> p = d -> d > 10;
+    // Predicate<String> p = d -> (d + 10).equals("");
+    // d is an argument/value name
+    List<Integer> evenNumbersList = intSet.stream().filter(p).collect(Collectors.toList());
+    // can also just input the lambda where p is rather than creating separate
+    System.out.println(evenNumbersList);
+    // System.out.println(); //Sys + (ctrl + spacebar)
+
+    // filtering by the predicate est above (p); adds all values from the intSet list that meet the
+    // criteria set in the predicate
+
+    /*
+     * can also be done using object ex: Dog
+     * 
+     * List<Dog> dogListFiltered = dogList.stream().filter(d -> d.getAge() >
+     * 10).collect(Collectors.toList());
+     * 
+     * System.out.println(dogListFiltered);
+     */
+
+    /*
+     * JavaBExamples
+     * 
+     * List<String> memberNames = new ArrayList<>(); memberNames.add("Names");
+     * 
+     * List<String> memberNamesFiltered = memberNames.stream().filter((s) -> s.startsWith("A"))
+     * .map(String::toUpperCase).collect(Collectors.toList());
+     * 
+     * alternate termination: forEach(System.out::println);
+     */
+
+
+    /*
+     * private static int pfAsArg(TestFP testFP) { return testFP.findCount(); TestFPP is a type, can
+     * be returned and used as argument }
+     */
+
+  }
+
+  private void hw3() {
+
+    /*
+     * Using java8 Use Streams and Lambdas Use at least 3 intermediate  and 3 terminal operations.
+     * https://howtodoinjava.com/java/stream/java-streams-by-examples/ (Section 7)
+     */
+
+    List<String> titles = new ArrayList<>();
+    titles.add("A Darker Shade of Magic");
+    titles.add("The Wicked King");
+    titles.add("Beach Read");
+    titles.add("A Darker Shade of Magic");
+    titles.add("Realm Breaker");
+
+    // creates list of titles in reverse order by distinct titles given
+    // peek allows to see flow of elements through stream
+    List<String> distinctElements = titles.stream().distinct().sorted((i1, i2) -> i2.compareTo(i1))
+        .peek(System.out::println).collect(Collectors.toList());
+
+    System.out.println(distinctElements);
+    System.out.println();
+
+    // prints titles in order after limiting to only two elements from whole list
+    titles.stream().limit(2).forEachOrdered(System.out::println);
+    System.out.println();
+
+    // counts the number of duplicate titles and stores in new value
+    long numDuplicates = titles.stream().filter(i -> Collections.frequency(titles, i) > 1).count();
+    System.out.println("The number of Duplicates: " + numDuplicates);
+
+
+
   }
 }
