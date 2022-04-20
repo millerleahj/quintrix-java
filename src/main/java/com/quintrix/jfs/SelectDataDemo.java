@@ -15,26 +15,34 @@ public class SelectDataDemo {
       connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/JDBCDemo", "root", "");
       // created database JDBCDemo
 
-      /*
-       * insertStmt = connection.createStatement(); insertStmt.
-       * execute("INSERT INTO EMPLOYEE (ID,FIRST_NAME,LAST_NAME,STAT_CD) VALUES (1,'Lokesh','Gupta',5)"
-       * ); insertStmt.
-       * execute("INSERT INTO EMPLOYEE (ID,FIRST_NAME,LAST_NAME,STAT_CD) VALUES (2,'howtodoinjava','com',5)"
-       * );
-       */
+      insertStmt = connection.createStatement();
+
+      // String createTable = "CREATE TABLE EMPLOYEE " + "(ID INTEGER not NULL, "
+      // + " FIRST VARCHAR(100), " + " LAST VARCHAR (100))";
+      // insertStmt.executeUpdate(createTable);
+      // Created table
+
+      // example:
+      // insertStmt.execute(
+      // "INSERT INTO EMPLOYEE (ID,FIRST_NAME,LAST_NAME,STAT_CD) VALUES (1,'Lokesh','Gupta',5)");
+      // insertStmt.execute(
+      // "INSERT INTO EMPLOYEE (ID,FIRST_NAME,LAST_NAME,STAT_CD) VALUES
+      // (2,'howtodoinjava','com',5)");
+
 
       selectStmt = connection.createStatement();
 
-      String createTable = "CREATE TABLE EMPLOYEE " + "(ID INTEGER not NULL, "
-          + " FIRST VARCHAR(100), " + " LAST VARCHAR (100))";
-      insertStmt.executeUpdate(createTable); // null pointer exception error
+
+      // String insertData = "INSERT INTO EMPLOYEE VALUES (1, 'LEAH', 'MILLER')";
+      // insertStmt.executeUpdate(insertData);
+      // inserted data
+
+      // insertData = "INSERT INTO EMPLOYEE VALUES (2, 'GUPTA', 'LOKESH')";
+      // insertStmt.executeUpdate(insertData);
+      // inserted data
 
 
-      String insertData = "INSERT INTO EMPLOYYEE VALUES (1, LEAH, MILLER)";
-      insertStmt.executeUpdate(insertData);
-
-      ResultSet rs =
-          selectStmt.executeQuery("SELECT ID,FIRST_NAME,LAST_NAME FROM EMPLOYEE WHERE ID <= 10");
+      ResultSet rs = selectStmt.executeQuery("SELECT ID,FIRST,LAST FROM EMPLOYEE WHERE ID <= 10");
       // needed FROM keyword
       while (rs.next()) {
         System.out.println(rs.getInt(1) + "|" + rs.getString(2) + " " + rs.getString(3)); // All
