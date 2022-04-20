@@ -6,6 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -25,7 +29,27 @@ import java.util.stream.Collectors;
 public class App {
   public static void main(String[] args) {
 
+    /*
+     * LocalDate time allows the date/time from where the server is to used
+     */
+    LocalDate localDate = LocalDate.now();
+    System.out.println(localDate);
 
+    /*
+     * This allows you to used the format syntax to determine how you want the date/time to look Use
+     * Oracle Date/Time Formatter to know the different keys ex: y = year; M = month; d = day; m =
+     * minutes
+     */
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    String text = localDate.format(formatter);
+    System.out.println(text);
+
+    /*
+     * This allows you to choose a timezone to get the date/time of a different timezone than where
+     * the server is
+     */
+    ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
+    System.out.println("Time in Europe: " + zonedDateTime);
 
   }
 
